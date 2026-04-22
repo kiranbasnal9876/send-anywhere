@@ -1,0 +1,46 @@
+<div class="row  justify-content-center align-items-center vh-100 vw-100 ">
+    <div class="col-sm-4 col-md-3">
+        <h2 class="text-center mb-3 display-6 ">Send Any Where</h2>
+        <div class="border p-3">
+            @if(issend){
+                <button class="btn align-center w-100" (click)="toggleCards()">Send File</button>
+            <div class="card shadow p-3 mb-5 bg-body rounded border border-info ">
+                <div class="card-body">
+                    <div>
+                         <form action="" [formGroup]="filedata">
+                        <input class="form-control form-control-lg fs-6" id="formFileLg" formControlName="sendFile" type="file" (change)="fileUplaod($event)">
+                        @if(this.filedata.get('sendFile')?.touched && this.filedata.get('sendFile')?.hasError('required') ){
+                            <small class="text-danger ">File is required</small>
+                        }
+                       
+                        <select class="form-select mt-3" aria-label="Default select example" formControlName="timer">
+                            <!-- <option  >select expiry time</option> -->
+                            <option value="10">10 Minut</option>
+                            <option value="20">20 Minut</option>
+                            <option value="30">30 Minut</option>
+                          </select>
+                          @if(this.filedata.get('timer')?.touched && this.filedata.get('timer')?.hasError('required')){
+                            <small class="text-danger"> expiry time is required</small>
+                        }
+                        </form>
+                        <button class="btn w-100 mt-3 btn-success" (click)="sendFile()" >Upload File</button>
+                        <div class=" mt-3  shadow ">
+                            <h2 class="text-center">{{code}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        }
+        @else{
+           <button class="btn w-100 " (click)="toggleCards()">Recieve File</button>
+            <div class="card shadow p-3 mb-5 bg-body rounded ">
+                <div class="card-body">
+                  <input type="text" class="form-control" id="getcode" placeholder="enter code" >
+                  <button class="btn w-100 mt-3 btn-danger" (click)="downloadFile()" > Download File</button>
+                </div>
+            </div>
+        }
+
+        </div>
+    </div>
+</div>
